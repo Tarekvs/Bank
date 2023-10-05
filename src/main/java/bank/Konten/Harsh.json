@@ -1,0 +1,22 @@
+[
+  {
+    "CLASSNAME": "Payment",
+    "INSTANCE": {
+      "incominginterest": 0.5,
+      "outgoinginterest": 0.5,
+      "date": "23.09.1897",
+      "amount": -2500.0,
+      "description": "Payment numero dos"
+    }
+  },
+  {
+    "CLASSNAME": "OutgoingTransfer",
+    "INSTANCE": {
+      "sender": "Harsh",
+      "recipient": "Hans",
+      "date": "30.07.2020",
+      "amount": 1890.0,
+      "description": "OutgoingTransfer to Hans"
+    }
+  }
+]

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.MainviewController">
+  <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="187.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="413.0" minWidth="10.0" prefWidth="413.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="329.0" minHeight="10.0" prefHeight="329.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="194.0" minHeight="10.0" prefHeight="71.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <ListView fx:id="listview" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                  <MenuItem fx:id="menuaccountview" mnemonicParsing="false" onAction="#loadAccountview" text="Accountview" />
+                  <MenuItem fx:id="menudelete" mnemonicParsing="false" onAction="#deleteDialog" text="Löschen" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
+      </ListView>
+      <Label prefHeight="77.0" prefWidth="240.0" text="Liste aller Accounts:" />
+      <Button fx:id="addbutton" mnemonicParsing="false" onAction="#addDialog" prefHeight="26.0" prefWidth="245.0" text="Account hinzufügen" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+   </children>
+</GridPane>

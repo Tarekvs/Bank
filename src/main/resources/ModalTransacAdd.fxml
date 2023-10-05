@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+
+<FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="233.0" prefWidth="332.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.ModalTransacAddController">
+   <children>
+      <Button mnemonicParsing="false" onAction="#payment" prefHeight="116.0" prefWidth="331.0" text="Payment" />
+      <Button mnemonicParsing="false" onAction="#transfer" prefHeight="116.0" prefWidth="331.0" text="Transfer" />
+      <BorderPane prefHeight="200.0" prefWidth="200.0" />
+   </children>
+</FlowPane>
