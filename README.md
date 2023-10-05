@@ -9,6 +9,7 @@ Welcome to the Bank Management System project. This application simulates a simp
 - **Persistence**: All account information and transactions are saved persistently using GSON and represented as JSON files.
 - **User Interface**: A user-friendly interface built with JavaFX and designed using SceneBuilder.
 - **Transaction History**: View and sort transaction history for each account.
+- **J-Unit 5 Testing**: 3 Files which test the capabilities of the bank
 
 ## Getting Started
 
