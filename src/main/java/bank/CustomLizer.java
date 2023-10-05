@@ -8,6 +8,15 @@ import java.lang.reflect.Type;
 public class CustomLizer implements JsonSerializer<Transaction>, JsonDeserializer<Transaction> {
 
 
+     /**
+     * Serializes a given {@code Transaction} object to a {@code JsonElement}.
+     *
+     * @param transaction               The transaction object to be serialized.
+     * @param type                      The specific type of transaction.
+     * @param jsonSerializationContext  The context for serialization.
+     * @return                          A JsonElement representation of the transaction.
+     */
+
     @Override
     public JsonElement serialize(Transaction transaction, Type type, JsonSerializationContext jsonSerializationContext) {
 
@@ -41,52 +50,61 @@ public class CustomLizer implements JsonSerializer<Transaction>, JsonDeserialize
         obj.add("INSTANCE", instance);
         return obj;
     }
-
+    
+    /**
+     * Deserializes a {@code JsonElement} to a {@code Transaction} object.
+     *
+     * @param jsonElement               The JsonElement to be deserialized.
+     * @param type                      The expected type of the deserialized object.
+     * @param jsonDeserializationContext The context for deserialization.
+     * @return                          A Transaction object, or null if deserialization fails.
+     * @throws TransactionAttributeException      If there is an error during the deserialization process.
+     */
     @Override
-        public Transaction deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-            JsonObject jo = jsonElement.getAsJsonObject();
-            JsonElement instance = jo.get("INSTANCE");
-            JsonObject io = instance.getAsJsonObject();
-            if (jo.get("CLASSNAME").getAsString().contains("Payment")){
-                try {
-                    return new Payment(
-                            io.get("date").getAsString(),
-                            io.get("amount").getAsDouble(),
-                            io.get("description").getAsString(),
-                            io.get("incominginterest").getAsDouble(),
-                            io.get("outgoinginterest").getAsDouble()
-                    );
-                } catch (TransactionAttributeException e) {
-                    System.out.println(e.getMessage());
-                }
+    public Transaction deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+        JsonObject jo = jsonElement.getAsJsonObject();
+        JsonElement instance = jo.get("INSTANCE");
+        JsonObject io = instance.getAsJsonObject();
+        if (jo.get("CLASSNAME").getAsString().contains("Payment")){
+            try {
+                return new Payment(
+                        io.get("date").getAsString(),
+                        io.get("amount").getAsDouble(),
+                        io.get("description").getAsString(),
+                        io.get("incominginterest").getAsDouble(),
+                        io.get("outgoinginterest").getAsDouble()
+                );
+            } catch (TransactionAttributeException e) {
+                System.out.println(e.getMessage());
             }
-            else if (jo.get("CLASSNAME").getAsString().contains("OutgoingTransfer")){
-                try {
-                    return new OutgoingTransfer(
-                            io.get("date").getAsString(),
-                            io.get("amount").getAsDouble(),
-                            io.get("description").getAsString(),
-                            io.get("sender").getAsString(),
-                            io.get("recipient").getAsString()
-                    );
-                } catch (TransactionAttributeException e) {
-                    System.out.println(e.getMessage());
-
-                }
-            }
-            else if (jo.get("CLASSNAME").getAsString().contains("IncomingTransfer")){
-                try {
-                    return new IncomingTransfer(
-                            io.get("date").getAsString(),
-                            io.get("amount").getAsDouble(),
-                            io.get("description").getAsString(),
-                            io.get("sender").getAsString(),
-                            io.get("recipient").getAsString()
-                    );
-                } catch (TransactionAttributeException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-            return null;
         }
+        else if (jo.get("CLASSNAME").getAsString().contains("OutgoingTransfer")){
+            try {
+                return new OutgoingTransfer(
+                        io.get("date").getAsString(),
+                        io.get("amount").getAsDouble(),
+                        io.get("description").getAsString(),
+                        io.get("sender").getAsString(),
+                        io.get("recipient").getAsString()
+                );
+            } catch (TransactionAttributeException e) {
+                System.out.println(e.getMessage());
+
+            }
+        }
+        else if (jo.get("CLASSNAME").getAsString().contains("IncomingTransfer")){
+            try {
+                return new IncomingTransfer(
+                        io.get("date").getAsString(),
+                        io.get("amount").getAsDouble(),
+                        io.get("description").getAsString(),
+                        io.get("sender").getAsString(),
+                        io.get("recipient").getAsString()
+                );
+            } catch (TransactionAttributeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
 }

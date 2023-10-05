@@ -24,17 +24,16 @@ public class PrivateBank implements Bank {
           return directoryName;
      }
 
-     /**
-      * Public da keine Getter / Setter Methoden
-      */
+     // Public as there are no getter / setter methods
      public Map<String, List<Transaction>> accountsToTransactions = new HashMap<String, List<Transaction>>();
 
      /**
-      * Konstruktor der nach erstellen die Methode readAccount() aufruft
+      * Constructor that calls the readAccount() method after creation
       *
-      * @param name             Name der Bank
-      * @param incominginterest Eingehende Zinsen
-      * @param outgoinginterest Ausgehende Zinsen
+      * @param name             Name of the bank
+      * @param incominginterest Incoming interest rate
+      * @param outgoinginterest Outgoing interest rate
+      * @param directoryname    Name of the directory
       */
      public PrivateBank(String name, double incominginterest, double outgoinginterest, String directoryname) {
           setName(name);
@@ -55,7 +54,7 @@ public class PrivateBank implements Bank {
      /**
       * Copy Constructor
       *
-      * @param x Zu kopierendes Objekt vom Typ PrivateBank
+      * @param x Object of type PrivateBank to be copied
       */
      public PrivateBank(PrivateBank x) {
           this(x.name, x.incominginterest, x.outgoinginterest, x.directoryName);
@@ -63,49 +62,47 @@ public class PrivateBank implements Bank {
 
 
      /**
-      * Getter für eingehende Zinsen
+      * Getter for incoming interest rate
       *
-      * @return eingehende Zinsen
+      * @return Incoming interest rate
       */
-     public double getIncominginterest() {                       //Objekts
+     public double getIncominginterest() {                       
           return incominginterest;
      }
 
      /**
-      * Getter für Name der Bank
+      * Getter for outgoing interest rate
       *
-      * @return Name der Bank
+      * @return Outgoing interest rate
       */
      public String getName() {
           return name;
      }
 
      /**
-      * Getter für ausgehende Zinsen
+      * Getter for outgoing interest rate
       *
-      * @return ausgehende Zinsen
+      * @return Outgoing interest rate
       */
-     public double getOutgoinginterest() {                       //die Werte zurückgeben
+     public double getOutgoinginterest() {                       
           return outgoinginterest;
      }
 
 
      /**
-      * Setter für Name der Bank
+      * Setter for the name of the bank
       *
-      * @param Name Name der Bank
+      * @param Name Name of the bank
       */
-
      public void setName(String Name) {
           name = Name;
      }
 
      /**
-      * Setter für eingehende Zinsen.
-      * Falls Zinsen größer 1, oder kleiner 0, setzte kein Zins und gebe
-      * stattdessen einen Fehler auf der Konsole aus
+      * Setter for incoming interest rate.
+      * If the interest rate is greater than 1 or less than 0, do not set the interest and instead display an error in the console
       *
-      * @param Incominginterest eingehende Zinsen
+      * @param Incominginterest Incoming interest rate
       */
      protected void setIncominginterest(double Incominginterest) throws TransactionAttributeException { //Zins setzen
           if (Incominginterest > 1) { //Falls Zins >1 gebe Fehler aus
@@ -118,10 +115,11 @@ public class PrivateBank implements Bank {
           incominginterest = Incominginterest;
      }
 
+
      /**
-      * Setter für ausgehende Zinsen. Falls Zinsen größer 1, oder kleiner 0, setzte kein Zins und gebe stattdessen einen Fehler auf der Konsole aus
+      * Setter for outgoing interest rate. If the interest rate is greater than 1 or less than 0, do not set the interest and instead display an error in the console
       *
-      * @param Outgoinginterest ausgehende Zinsen
+      * @param Outgoinginterest Outgoing interest rate
       */
      protected void setOutgoinginterest(double Outgoinginterest) throws TransactionAttributeException {
 
@@ -134,12 +132,12 @@ public class PrivateBank implements Bank {
      }
 
      /**
-      * Überschriebene equals Methode der Klasse Object.
-      * Vergleicht jede Eigenschaft des aufrufenden Objekts mit dem übergebenem Objekt.
-      * Verwende bei String vergleichen die equals Methode, da String ein Objekt der Klasse String ist, und ansonsten nur die Referenzen verglichen werden
+      * Overridden equals method from the Object class.
+      * Compares every property of the calling object with the given object.
+      * Use the equals method when comparing Strings, since String is an object of the String class, and otherwise, only references will be compared
       *
-      * @param obj Ein Objekt der Klasse Object
-      * @return gebe True zurück wenn Attribute der zwei Objekte identisch, ansonsten False
+      * @param obj An object of the Object class
+      * @return Returns true if the attributes of the two objects are identical, otherwise false
       */
      @Override
      public boolean equals(Object obj) {
@@ -151,10 +149,10 @@ public class PrivateBank implements Bank {
           return (Objects.equals(this.name, T.getName()) && incominginterest == T.getIncominginterest() && outgoinginterest == T.getOutgoinginterest() && accountsToTransactions.equals(T.accountsToTransactions));
      }
 
-     /**
-      * Überschriebene toString Methode der Klasse Object.
+    /**
+      * Overridden toString method from the Object class.
       *
-      * @return Ein String der eine Beschreibung aller Attribute darstellt
+      * @return A string that describes all attributes
       */
      @Override
      public String toString() {
@@ -170,20 +168,20 @@ public class PrivateBank implements Bank {
      }
 
      /**
-      * Hier nicht Contains Methode von List verwenden da Liste die Transaction zweimal beinhalten muss, deswegen über Zähler
+      * Do not use the Contains method from List here since the list must contain the transaction twice, hence use a counter
       *
-      * @param account      the account to be added
-      * @param transactions a list of already existing transactions which should be added to the newly created account
+      * @param account      The account to be added
+      * @param transactions A list of already existing transactions that should be added to the newly created account
       * @throws AccountAlreadyExistsException
       * @throws TransactionAlreadyExistException
       * @throws TransactionAttributeException
       */
      @Override
      public void createAccount(String account, List<Transaction> transactions) throws AccountAlreadyExistsException, TransactionAlreadyExistException, TransactionAttributeException {
-          //Altes Create account verwenden
+          //Use old Create Account
           if (accountsToTransactions.containsKey(account))
                throw new AccountAlreadyExistsException("Account existiert bereits");
-          //Add transaciton verwenden
+          //Use Add Transaction instead
           for (Transaction T : transactions) {
                int zähler = 0;
                for (Transaction P : transactions) {
@@ -211,7 +209,7 @@ public class PrivateBank implements Bank {
 
      @Override
      public void addTransaction(String account, Transaction transaction) throws TransactionAlreadyExistException, AccountDoesNotExistException, TransactionAttributeException {
-//Kopie erstellen, prüfen, dann Werte von Original ändern und Original einfügen
+
           if (!accountsToTransactions.containsKey(account))
                throw new AccountDoesNotExistException("Es existiert kein Konto mit dem Namen " + account);
           if (accountsToTransactions.get(account).contains(transaction))
@@ -222,10 +220,6 @@ public class PrivateBank implements Bank {
 
           if (transaction instanceof Payment) {
                Payment P = new Payment (transaction.getDate(), transaction.getAmount(), transaction.getDescription(),this.getIncominginterest(),this.getOutgoinginterest());
-               //((Payment) transaction).setIncominginterest(incominginterest);
-               //((Payment) transaction).setOutgoinginterest(outgoinginterest);
-               //System.out.println(((Payment)transaction).getIncominginterest());
-               //System.out.println(((Payment)transaction).getOutgoinginterest());
                try {
                accountsToTransactions.get(account).add(P);} catch (Exception e) {e.printStackTrace();}
 
@@ -286,7 +280,6 @@ public class PrivateBank implements Bank {
           int size = accountsToTransactions.get(account).size();
           List<Double> A = new ArrayList<>();
           List<Transaction> Copy = accountsToTransactions.get(account);
-          //accountsToTransactions.get(account).clear(); Falls accountsToTransaction bearbeitet werden soll?
           List<Transaction> Sorted = new ArrayList<>();
           for (Transaction T : Copy) {
                A.add(T.calculate());
@@ -335,13 +328,15 @@ public class PrivateBank implements Bank {
           return Copy;
      }
 
+
      /**
-      * Function welche bestimmt ob TransactionAttributeException geworfen wird oder nicht
-      * Nötig weil interface Bank Methoden Exception throwen aber ich prüfe bereits bei Setter die Exception?
+      * Function that determines whether to throw a TransactionAttributeException or not.
+      * Necessary because the interface 'Bank' methods throw exceptions, but I've already checked for exceptions in the setter methods.
       *
-      * @param x Objekt der Klasse Transaction
-      * @return False falls "validation for certain Attributes check fail" ansonsten True
+      * @param x Object of type Transaction
+      * @return False if the "validation for certain attributes fails", otherwise returns True
       */
+
      private boolean pruefeTransaction(Transaction x) {
           if (x.getDescription() == null || x.getDate() == null || x.getAmount() == 0)
                return false;
@@ -413,11 +408,12 @@ public class PrivateBank implements Bank {
      }
 
      /**
-      * Löscht Account und löscht, falls vorhanden, die zugehörige Json Datei
-      * @param account
-      * @throws AccountDoesNotExistException
-      * @throws IOException
+      * Deletes an account and deletes the associated JSON file if it exists.
+      * @param account The account to be deleted
+      * @throws AccountDoesNotExistException if the specified account does not exist
+      * @throws IOException if an I/O error occurs
       */
+
      public void deleteAccount(String account) throws AccountDoesNotExistException, IOException {
           if (!accountsToTransactions.containsKey(account))
                throw new AccountDoesNotExistException("Account existiert nicht");
@@ -427,8 +423,8 @@ public class PrivateBank implements Bank {
      }
 
      /**
-      * List aller Accounts einer Bank
-      * @return String Liste der Accounts
+      * List of accounts
+      * @return String list of accounts
       */
      public List<String> getAllAccounts(){
           Set<String> accountSet= accountsToTransactions.keySet();

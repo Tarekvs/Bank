@@ -4,108 +4,105 @@ import bank.exceptions.TransactionAttributeException;
 
 import java.util.Objects;
 
-/**Abstrakte Klasse welche Grundattribute und Methoden der Klassen Payment und Transfer
- * verwaltet/beinhaltet. Implementiert Interface CalculateBill
+/**
+ * Abstract class that manages basic attributes and methods of the classes Payment and Transfer.
+ * Implements the CalculateBill interface.
  * @author tarekvonseckendorff
  * @see bank.CalculateBill
- * @version 1.0
- *
  */
+
 public abstract class Transaction implements CalculateBill {
 
+    protected String date; // Date (DD.MM.YY) of a deposit/withdrawal
+    protected double amount; // Amount of the deposit/withdrawal
+    protected String description; // Description of the deposit/withdrawal
 
-
-    protected String date; //DD.MM.YY einer Ein/Auszahlung
-
-    protected double amount; //Höhe der Ein/Auszahlung
-
-    protected String description; // Beschreibung der Ein/Auszahlung
-
-    /** Nicht vollständiger Konstruktor der alle Werte über die Setter Methoden der jeweiligen Klassen
-     * initialisiert. (Eventuell geteilte Methoden)
-     *
-     * @param date Datum im Format DD.MM.YY
-     * @param amount Betrag des Transfers oder Ein/Auszahlung.
-     * @param description Beschreibung des Transfers oder Ein/Auszahlung
+    /** 
+     * Incomplete constructor that initializes all values using the setter methods 
+     * of their respective classes (possibly shared methods).
+     * @param date Date in the format DD.MM.YY
+     * @param amount Amount of the transfer or deposit/withdrawal.
+     * @param description Description of the transfer or deposit/withdrawal
      */
-    Transaction (String date,double amount, String description) throws TransactionAttributeException{
-        setAmount(amount); //Methode einer noch nicht instanziierten sub-class wird aufgerufen, ist das gut?
+    Transaction (String date, double amount, String description) throws TransactionAttributeException {
+        setAmount(amount); 
         setDate(date);
         setDescription(description);
     }
 
     /**
-     *Getter Methode für das Datum des Transfers oder Ein/Auszahlung
-     * @return Gibt das Datum des Transfers oder Ein/Auszahlung zurück
+     * Getter method for the date of the transfer or deposit/withdrawal
+     * @return Returns the date of the transfer or deposit/withdrawal
      */
-    public String getDate (){
+    public String getDate() {
         return date;
     }
 
     /**
-     * Getter für Amount des Transfers oder Ein/Auszahlung
-     * @return Amount des Transfers oder Ein/Auszahlung
+     * Getter for the amount of the transfer or deposit/withdrawal
+     * @return Amount of the transfer or deposit/withdrawal
      */
-    public double getAmount (){
+    public double getAmount() {
         return amount;
     }
 
     /**
-     * Getter für Description des Transfers oder Ein/Auszahlung
-     * @return Beschreibung des Transfers oder Ein/Auszahlung
+     * Getter for the description of the transfer or deposit/withdrawal
+     * @return Description of the transfer or deposit/withdrawal
      */
-    public String getDescription (){
+    public String getDescription() {
         return description;
     }
 
     /**
-     * Abstrakte Set-Methode für Amount welche von den Subklassen definiert wird
-     * @param amount Amount des Transfers oder Ein/Auszahlung
+     * Abstract set method for amount which will be defined by the subclasses
+     * @param amount Amount of the transfer or deposit/withdrawal
      */
-    protected void setAmount(double amount) throws TransactionAttributeException{
-        this.amount=amount;
+    protected void setAmount(double amount) throws TransactionAttributeException {
+        this.amount = amount;
     };
 
     /**
-     * Set-Methode für das Datum des Transfers oder Ein/Auszahlung
-     * @param Date Datum des Transfers oder Ein/Auszahlung
+     * Set method for the date of the transfer or deposit/withdrawal
+     * @param Date Date of the transfer or deposit/withdrawal
      */
-    protected void setDate(String Date){ date=Date; }     //ausgelagerte setter
+    protected void setDate(String Date) {
+        date = Date; 
+    }
 
     /**
-     * Set-Methode für die Beschreibungs des Transfers oder Ein/Auszahlung
-     * @param Description Beschreibungs des Transfers oder Ein/Auszahlung
+     * Set method for the description of the transfer or deposit/withdrawal
+     * @param Description Description of the transfer or deposit/withdrawal
      */
-    protected void setDescription(String Description){ description= Description; } //für alle Funktionen
+    protected void setDescription(String Description) {
+        description = Description; 
+    }
 
     /**
-     * Überschriebene toString Methode der Klasse Object.
-     * @return Ein String der eine Basis Beschreibung darstellt, welche von den Subklassen weiter ausgeführt wird
+     * Overridden toString method from the Object class.
+     * @return A string representing a basic description, further elaborated by the subclasses
      */
     @Override
     public String toString() {
-        return "Beschreibung: " + description + ". Transaktion in Höhe von " + calculate() + ", getätigt am " + date ;
+        return "Description: " + description + ". Transaction amounting to " + calculate() + ", made on " + date;
     }
 
     /**
-     * Überschriebene equals Methode der Klasse Object.
-     * Vergleicht jede Eigenschaft des aufrufenden Objekts mit dem übergebenem Objekt.
-     * Verwende bei String vergleichen die equals Methode, da String ein Objekt der Klasse String ist, und ansonsten nur die Referenzen verglichen werden
-     * @param obj Ein Objekt der Klasse Object
-     * @return True wenn Attribute der zwei Objekte identisch, ansonsten False
+     * Overridden equals method from the Object class.
+     * Compares every property of the calling object with the passed object.
+     * For string comparisons, use the equals method because String is an object of the String class, and otherwise only references are compared
+     * @param obj An object of the Object class
+     * @return True if attributes of the two objects are identical, otherwise False
      */
     @Override
     public boolean equals(Object obj) {
-        if(obj==null)
+        if(obj == null)
             return false;
-        if (obj.getClass()!=this.getClass())
-                return false;
+        if (obj.getClass() != this.getClass())
+            return false;
 
-        Transaction T= (Transaction) obj;
-        //Objects.equals prüft auf NULL bevor object.equals gerufen wird
-        //Strings sind Objekte in Java?
-        return (Objects.equals(date, T.getDate()) && amount==T.getAmount() && Objects.equals(description, T.getDescription()));
+        Transaction T = (Transaction) obj;
+        // Objects.equals checks for NULL before calling object.equals
+        return (Objects.equals(date, T.getDate()) && amount == T.getAmount() && Objects.equals(description, T.getDescription()));
     }
 }
-
-

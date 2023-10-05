@@ -5,8 +5,8 @@ package bank;
  */
 public interface CalculateBill  {
       /**
-       * Calculate Methode welche von Transfer und Payment definiert wird
-       * @return gebe double Wert zurück
+       * Method implemented by Payment and Transfer
+       * @return double
        */
       double calculate();
 }

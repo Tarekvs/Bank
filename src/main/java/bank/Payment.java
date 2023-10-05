@@ -4,149 +4,145 @@ import bank.exceptions.TransactionAlreadyExistException;
 import bank.exceptions.TransactionAttributeException;
 
 /**
- * Payment Klasse - Subklasse von Transaction
+ * Abstract class that manages basic attributes and methods of the classes Payment and Transfer.
+ * Implements the CalculateBill interface.
+ * @author tarekvonseckendorff
+ * @see bank.Transaction
+ * @version 1.0
  */
-public class Payment extends Transaction  {
+public class Payment extends Transaction {
 
-    private double incominginterest; //Zinsen bei Einzahlung
-    private double outgoinginterest; //Zinsen bei Auszahlung
+    private double incominginterest; 
+    private double outgoinginterest;
 
     /**
-     * Unvollständiger Konstruktor der den Super Konstruktor nutzt
-     * @param date Datum der Ein/Auszahlung
-     * @param amount Amount der Ein/Auszahlung
-     * @param description Beschreibung der Ein/Auszahlung
+     * Partial constructor that utilizes the super constructor.
+     *
+     * @param date The date of the deposit/withdrawal.
+     * @param amount The amount of the deposit/withdrawal.
+     * @param description Description of the deposit/withdrawal.
      */
-    public Payment(String date, double amount, String description) throws TransactionAttributeException { //Konstruktor für die Klasse Payment, bei dem nur 3/5 Attribute initialisiert werden
-        super(date,amount, description);
-
+    public Payment(String date, double amount, String description) throws TransactionAttributeException {
+        super(date, amount, description);
     }
 
     /**
-     * Vollständiger Konstruktor der den Super Konstruktor für die basis Attribute aufruft, und für die Zinsen die Setter der Payment Klasse
-     * @param date Datum der Ein/Auszahlung
-     * @param amount Amount der Ein/Auszahlung
-     * @param description der Ein/Auszahlung
-     * @param incominginterest Eingehende Zinsen der Ein/Auszahlung
-     * @param outgoinginterest Ausgehende Zinsender Ein/Auszahlung
+     * Complete constructor that invokes the super constructor for basic attributes 
+     * and uses the setters of the Payment class for the interests.
+     *
+     * @param date Date of the deposit/withdrawal.
+     * @param amount Amount of the deposit/withdrawal.
+     * @param description Description of the deposit/withdrawal.
+     * @param incominginterest Incoming interest of the deposit/withdrawal.
+     * @param outgoinginterest Outgoing interest of the deposit/withdrawal.
      */
-    public Payment(String date, double amount, String description, double incominginterest, double outgoinginterest) throws TransactionAttributeException { //Konstruktor bei dem alle Werte initialisiert werden
-        super(date,amount, description);
-        this.incominginterest=incominginterest;
-        this.outgoinginterest=outgoinginterest;
-        //setOutgoinginterest(outgoinginterest);
-        //setIncominginterest(incominginterest);
+    public Payment(String date, double amount, String description, double incominginterest, double outgoinginterest) throws TransactionAttributeException {
+        super(date, amount, description);
+        this.incominginterest = incominginterest;
+        this.outgoinginterest = outgoinginterest;
     }
 
     /**
-     * Copy-Konstruktor
-     * @param x Zu kopierendes Objekt X
+     * Copy constructor.
+     *
+     * @param x The object X to be copied.
      */
-    public Payment(Payment x) throws TransactionAttributeException{ //Copy-Konstruktor bei dem Objekt dem zu kopierendes Objekt übergeben wird
-        this(x.getDate(), x.getAmount(), x.getDescription(),x.getIncominginterest(),x.getOutgoinginterest());
+    public Payment(Payment x) throws TransactionAttributeException {
+        this(x.getDate(), x.getAmount(), x.getDescription(), x.getIncominginterest(), x.getOutgoinginterest());
     }
 
     /**
-     * Getter für eingehende Zinsen
-     * @return eingehende Zinsen
+     * Getter for incoming interest.
+     *
+     * @return Incoming interest.
      */
-    public double getIncominginterest (){                       //Objekts
+    public double getIncominginterest() {
         return incominginterest;
     }
 
     /**
-     * Getter für ausgehende Zinsen
-     * @return ausgehende Zinsen
+     * Getter for outgoing interest.
+     *
+     * @return Outgoing interest.
      */
-    public double getOutgoinginterest (){                       //die Werte zurückgeben
+    public double getOutgoinginterest() {
         return outgoinginterest;
     }
 
-
-/*
     /**
-     * Setter für Amount. Setzt den Amount ohne weitere Prüfung
-     * @param Amount Amount der Ein/Auszahlung
-
-    @Override
-    protected void setAmount(double Amount) {
-        amount=Amount;
-    }
-*/
-    /**
-     * Setter für eingehende Zinsen.
-     * Falls Zinsen größer 1, oder kleiner 0, setzte kein Zins und gebe
-     * stattdessen einen Fehler auf der Konsole aus
-     * @param Incominginterest eingehende Zinsen
+     * Setter for incoming interest. If the interest is greater than 1 or less than 0, 
+     * no interest is set and instead an error is displayed on the console.
+     *
+     * @param Incominginterest Incoming interest.
      */
-    public void setIncominginterest(double Incominginterest) throws TransactionAttributeException { //Zins setzen
-        if (Incominginterest>1){ //Falls Zins >1 gebe Fehler aus
-            throw new TransactionAttributeException("Fehler: Zins ist zu hoch");
-
+    public void setIncominginterest(double Incominginterest) throws TransactionAttributeException {
+        if (Incominginterest > 1) {
+            throw new TransactionAttributeException("Error: Interest is too high");
+        } else if (Incominginterest < 0) {
+            throw new TransactionAttributeException("Error: Interest is negative");
         }
-        else if (Incominginterest<0){ //Falls Zins <0 gebe Fehler aus
-            throw new TransactionAttributeException("Fehler: Zins ist negativ");
-
-        }
-        incominginterest=Incominginterest;
+        incominginterest = Incominginterest;
     }
 
     /**
-     * Setter für ausgehende Zinsen. Falls Zinsen größer 1, oder kleiner 0, setzte kein Zins und gebe stattdessen einen Fehler auf der Konsole aus
-     * @param Outgoinginterest ausgehende Zinsen
+     * Setter for outgoing interest. If the interest is greater than 1 or less than 0,
+     * no interest is set and instead an error is displayed on the console.
+     *
+     * @param Outgoinginterest Outgoing interest.
      */
-    public void setOutgoinginterest(double Outgoinginterest) throws TransactionAttributeException{
-
-        if (Outgoinginterest>1){ //Falls Zins >1 gebe Fehler aus
-            throw new TransactionAttributeException("Fehler: Zins ist zu hoch");
+    public void setOutgoinginterest(double Outgoinginterest) throws TransactionAttributeException {
+        if (Outgoinginterest > 1) {
+            throw new TransactionAttributeException("Error: Interest is too high");
+        } else if (Outgoinginterest < 0) {
+            throw new TransactionAttributeException("Error: Interest is negative");
         }
-        else if (Outgoinginterest<0) { //Falls Zins <0 gebe Fehler aus
-            throw new TransactionAttributeException("Fehler: Zins ist negativ");
-        }
-        outgoinginterest=Outgoinginterest;
+        outgoinginterest = Outgoinginterest;
     }
 
     /**
-     * Überschriebene / Definierte Methode des Interfaces CalculateBill.
-     * Subtrahiere in beiden Fällen die Zinsen
-     * @return Amount mit den entsprechenden Zinsen verrechnet
+     * Overridden method of the CalculateBill interface.
+     * Subtract interests in both cases.
+     *
+     * @return Amount adjusted for the corresponding interest.
      */
     @Override
     public double calculate() {
         if (amount > 0)
-            return (amount* (1-incominginterest));
+            return (amount * (1 - incominginterest));
         else
-            return (amount * (1+outgoinginterest));
-    }
-
-    /**Überschriebene toString der SuperKlasse Transaction.
-     * Füge zum basis String Payment spezifische Informationen hinzu
-     * @return Beschreibung der Klasse in Form eines String
-     */
-    @Override
-    public String toString() {
-        if (amount>0)
-            return super.toString() + "\n" + "Die eingehenden Zinsen in höhe von " + incominginterest + " wurden bereits miteinberechnet. (Amount= " + amount + ")";
-        else
-            return super.toString() + "\n" + "Die ausgehenden Zinsen in höhe von " + outgoinginterest + " wurden bereits miteinberechnet. (Amount= " + amount + ")";
-
+            return (amount * (1 + outgoinginterest));
     }
 
     /**
-     * Überschriebene equals Methode der Super-Klasse Transaction. Vergleiche Paymentspezifische Eigenschaften
-     * Verwende bei String vergleichen die equals Methode, da String ein Objekt der Klasse String ist, und ansonsten nur die Referenzen verglichen werden
-     * @param obj Ein Objekt der Klasse Object
-     * @return True Falls Payment Objekte gleich sind
+     * Overridden toString method of the Transaction superclass.
+     * Add Payment-specific information to the basic string.
+     *
+     * @return Description of the class in the form of a string.
+     */
+    @Override
+    public String toString() {
+        if (amount > 0)
+            return super.toString() + "\n" + "The incoming interest amounting to " + incominginterest + " has already been taken into account. (Amount = " + amount + ")";
+        else
+            return super.toString() + "\n" + "The outgoing interest amounting to " + outgoinginterest + " has already been taken into account. (Amount = " + amount + ")";
+    }
+
+    /**
+     * Overridden equals method of the Transaction superclass. Compare Payment-specific properties.
+     * Use the equals method to compare strings because String is an object of the String class, and otherwise only references are compared.
+     *
+     * @param obj An object of the Object class.
+     * @return True if Payment objects are equal.
      */
     @Override
     public boolean equals(Object obj) {
-        if(obj==null)
+        if (obj == null)
             return false;
-        if (obj.getClass()!=this.getClass())
+        if (obj.getClass() != this.getClass())
             return false;
 
-        Payment P= (Payment) obj;
-        return (super.equals(obj) && incominginterest==P.getIncominginterest() && outgoinginterest==P.getOutgoinginterest() );
+        Payment P = (Payment) obj;
+        return (super.equals(obj) && incominginterest == P.getIncominginterest() && outgoinginterest == P.getOutgoinginterest());
+   
     }
 }
-

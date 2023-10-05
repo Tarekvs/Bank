@@ -4,8 +4,15 @@ import bank.exceptions.TransactionAttributeException;
 
 import java.util.Objects;
 
+/**
+ * Abstract class that manages basic attributes and methods of the classes Payment and Transfer.
+ * Implements the CalculateBill interface.
+ * @author tarekvonseckendorff
+ * @see bank.Transfer
+ */
 public class IncomingTransfer extends Transfer{
 
+    
     public IncomingTransfer (String date, double amount, String description, String sender, String recipient) throws TransactionAttributeException {
         super(date, amount, description, sender, recipient);
     }
@@ -19,6 +26,8 @@ public class IncomingTransfer extends Transfer{
     public String toString() {
         return "Es handelt sich um ein IncomingTransfer. " + super.toString();
     }
+
+
     @Override
     public boolean equals(Object obj) {
         if(obj==null)

@@ -5,128 +5,128 @@ import bank.exceptions.TransactionAttributeException;
 import java.util.Objects;
 
 /**
- * Transfer Klasse - Subklasse von Transaction
+ * Abstract class that manages basic attributes and methods of the classes Payment and Transfer.
+ * Implements the CalculateBill interface.
+ * @author tarekvonseckendorff
+ * @see bank.Transaction
  */
-public class Transfer extends Transaction  {
-    private String sender; //Akteur der Geldemenge schickt
-    private String recipient; //Aktuer der Geldmenge bekommt
+public class Transfer extends Transaction {
+    private String sender;      // Actor sending the money amount
+    private String recipient;   // Actor receiving the money amount
 
     /**
-     * Unvollständiger Konstruktor der den Super Konstruktor nutzt
-     * @param date Datum des Transfers
-     * @param amount Amount des Transfers
-     * @param description Beschreibung des Transfers
+     * Incomplete constructor utilizing the superclass constructor
+     * @param date Date of the transfer
+     * @param amount Amount of the transfer
+     * @param description Description of the transfer
      */
-    public Transfer(String date, double amount, String description) throws TransactionAttributeException{//Konstruktor für die Klasse Transfer, bei dem nur 3/5 Attribute initialisiert werden
-        super(date,amount, description);
-
+    public Transfer(String date, double amount, String description) throws TransactionAttributeException { // Constructor for Transfer class initializing only 3 out of 5 attributes
+        super(date, amount, description);
     }
 
     /**
-     * Unvollständiger Konstruktor der den Super Konstruktor nutzt
-     * @param date Datum des Transfers
-     * @param amount Amount des Transfers
-     * @param description Beschreibung des Transfers
-     * @param sender Sender des Transfers
-     * @param recipient Empfänger des Transfers
+     * Incomplete constructor utilizing the superclass constructor
+     * @param date Date of the transfer
+     * @param amount Amount of the transfer
+     * @param description Description of the transfer
+     * @param sender Sender of the transfer
+     * @param recipient Recipient of the transfer
      */
-    public Transfer(String date, double amount, String description, String sender, String recipient)throws TransactionAttributeException {   //Konstruktor bei dem alle Werte initialisiert werden
-        super(date,amount, description);
+    public Transfer(String date, double amount, String description, String sender, String recipient) throws TransactionAttributeException { // Constructor initializing all attributes
+        super(date, amount, description);
         setSender(sender);
         setRecipient(recipient);
     }
+
     /**
-     * Copy-Konstruktor
-     * @param x Zu kopierendes Objekt X
+     * Copy Constructor
+     * @param x Object to be copied
      */
-    public Transfer(Transfer x) throws TransactionAttributeException{
-        this (x.getDate(), x.getAmount(), x.getDescription(), x.getSender(), x.getRecipient());
+    public Transfer(Transfer x) throws TransactionAttributeException {
+        this(x.getDate(), x.getAmount(), x.getDescription(), x.getSender(), x.getRecipient());
     }
 
-
     /**
-     * Getter für Sender des Transfers
-     * @return Sender des Transfers
+     * Getter for the transfer's sender
+     * @return Sender of the transfer
      */
-    public String getSender (){
+    public String getSender() {
         return sender;
     }
 
     /**
-     * getter für Empfänger des Transfers
-     * @return Empfänger des Transfers
+     * Getter for the transfer's recipient
+     * @return Recipient of the transfer
      */
-    public String getRecipient (){
+    public String getRecipient() {
         return recipient;
-    }           //des Objekts
-
-
-    /**
-     * Überschriebene Amount Methode der Super-Klasse Transaction.
-     * Falls Amount kleiner als Null, gebe Fehler aus.
-     * Ansonsten setze Amount
-     * @param Amount Amount des Transfers
-     */
-     @Override
-     protected void setAmount(double Amount) throws TransactionAttributeException {
-         if (Amount<=0){ //Falls Amount ≤0 gebe Fehler aus
-             throw new TransactionAttributeException("Fehler: Transfer kann nicht negativ oder 0 sein");
-         }
-         amount=Amount;
-     }
-
-    /**
-     * Setter Methode für Sender des Transfers
-     * @param Sender Sender des Transfers
-     */
-    private void setSender(String Sender){
-        sender=Sender;
     }
 
     /**
-     * Setter für Empfänger des Transfers
-     * @param Recipient Empfänger des Transfers
+     * Overridden Amount method from the superclass Transaction.
+     * If Amount is less than zero, produce an error.
+     * Otherwise, set the Amount
+     * @param Amount Amount of the transfer
      */
-    private void setRecipient(String Recipient){
-        recipient=Recipient;
-    }               //des Objekts
+    @Override
+    protected void setAmount(double Amount) throws TransactionAttributeException {
+        if (Amount <= 0) { // If Amount ≤0 produce an error
+            throw new TransactionAttributeException("Error: Transfer cannot be negative or 0");
+        }
+        amount = Amount;
+    }
 
     /**
-     * Überschriebene / Definierte Methode des Interfaces CalculateBill.
-     * Gebe amount zurück da keine anfallenden Zinsen bei Transfers
+     * Setter method for the transfer's sender
+     * @param Sender Sender of the transfer
+     */
+    private void setSender(String Sender) {
+        sender = Sender;
+    }
+
+    /**
+     * Setter for the transfer's recipient
+     * @param Recipient Recipient of the transfer
+     */
+    private void setRecipient(String Recipient) {
+        recipient = Recipient;
+    }
+
+    /**
+     * Overridden / Defined method from the CalculateBill interface.
+     * Return amount since there are no interests incurred in transfers
      * @return Amount
      */
     @Override
     public double calculate() {
         return amount;
-        }
-    /**Überschriebene toString der SuperKlasse Transaction.
-     * Füge zum basis String Transfer spezifische Informationen hinzu
-     * @return Beschreibung der Klasse in Form eines String
+    }
+
+    /**
+     * Overridden toString from the superclass Transaction.
+     * Append transfer-specific information to the base string
+     * @return Class description in the form of a string
      */
     @Override
     public String toString() {
-        return super.toString() + "\n" + "Sender: " + sender + "\n" + "Empfänger: " + recipient;
+        return super.toString() + "\n" + "Sender: " + sender + "\n" + "Recipient: " + recipient;
     }
+
     /**
-     * Überschriebene equals Methode der Super-Klasse Transaction. Vergleiche Transferspezifische Eigenschaften
-     * Verwende bei String vergleichen die equals Methode, da String ein Objekt der Klasse String ist, und ansonsten nur die Referenzen verglichen werden
-     * @param obj Ein Objekt der Klasse Object
-     * @return True Falls Payment Objekte gleich sind
+     * Overridden equals method from the superclass Transaction. Compare transfer-specific properties.
+     * For string comparison, use the equals method since String is an object of the String class, and otherwise only references will be compared
+     * @param obj An object of the Object class
+     * @return True if Transfer objects are identical
      */
     @Override
     public boolean equals(Object obj) {
-        if(obj==null)
+        if (obj == null)
             return false;
-        if (obj.getClass()!=this.getClass())
+        if (obj.getClass() != this.getClass())
             return false;
 
-        Transfer T=(Transfer) obj;
+        Transfer T = (Transfer) obj;
         return (super.equals(obj) && Objects.equals(sender, T.getSender()) && Objects.equals(recipient, T.getRecipient()));
     }
 }
-
-
-
-
 
