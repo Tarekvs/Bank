@@ -16,85 +16,105 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Controller for the main view of the application.
+ * Provides functionalities such as displaying accounts, adding accounts,
+ * deleting accounts, and transitioning to specific account views.
+ */
 public class MainviewController {
 
-    Stage stage;
-    @FXML
-    MenuItem menuaccountview;
-    @FXML
-    MenuItem menudelete;
-    @FXML
-    Button addbutton;
+    private Stage stage;
 
     @FXML
-    ListView listview;
+    private MenuItem menuaccountview;
+    @FXML
+    private MenuItem menudelete;
+    @FXML
+    private Button addbutton;
+    @FXML
+    private ListView<String> listview;
 
-
-    public void setStage(Stage Stages){
-        this.stage=Stages;
+    /**
+     * Sets the main stage for this controller.
+     * 
+     * @param stage The stage to be set.
+     */
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
-    @FXML
-    public void initialize(){
-        PrivateBank PB = new PrivateBank("Test", 0.5,0.5,System.getProperty("user.dir")+"/src/main/java/bank/Konten/");
 
+    /**
+     * Initializes the main view by loading all accounts from the bank
+     * and displaying them in the list view.
+     */
+    @FXML
+    public void initialize() {
+        PrivateBank PB = new PrivateBank("Test", 0.5, 0.5, System.getProperty("user.dir") + "/src/main/java/bank/Konten/");
         List<String> strings = PB.getAllAccounts();
         ObservableList<String> items = FXCollections.observableArrayList(strings);
         listview.setItems(items);
     }
-    @FXML
-    public void deleteDialog (){
 
-        String account= (String) listview.getSelectionModel().getSelectedItem();
-        System.out.println(account);
+    /**
+     * Displays a dialog for deleting a selected account.
+     * It retrieves the account selected in the list view and transitions
+     * to a modal for account deletion.
+     */
+    @FXML
+    public void deleteDialog() {
+        String account = listview.getSelectionModel().getSelectedItem();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ModalAccDelete.fxml"));
         try {
             Parent anwendung = loader.load();
             Scene scene = new Scene(anwendung);
-            ModalAccDeleteController controller= loader.getController();
+            ModalAccDeleteController controller = loader.getController();
             controller.initialize(account);
             controller.setStage(stage);
             stage.setScene(scene);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         stage.show();
     }
 
+    /**
+     * Displays a dialog for adding a new account.
+     * Transitions to a modal for account addition.
+     */
     @FXML
-    public void addDialog () throws IOException {
+    public void addDialog() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ModalAccAdd.fxml"));
         try {
             Parent anwendung = loader.load();
             Scene scene = new Scene(anwendung);
-            stage.setScene(scene);
-            ModalAccAddController controller= loader.getController();
+            ModalAccAddController controller = loader.getController();
             controller.setStage(stage);
-        }
-        catch (Exception e){
+            stage.setScene(scene);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         stage.show();
     }
+
+    /**
+     * Loads the view for a specific account.
+     * It retrieves the account selected in the list view and transitions to
+     * the detailed view for that account.
+     */
     @FXML
-    public void loadAccountview (){
-        String account= (String) listview.getSelectionModel().getSelectedItem();
-        System.out.println(account);
+    public void loadAccountview() {
+        String account = listview.getSelectionModel().getSelectedItem();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Accountview.fxml"));
         try {
             Parent anwendung = loader.load();
             Scene scene = new Scene(anwendung);
-            AccountviewController controller= loader.getController();
-            controller.initialize(stage,account);
+            AccountviewController controller = loader.getController();
+            controller.initialize(stage, account);
             controller.setStage(stage);
             stage.setScene(scene);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         stage.show();
     }
-
-
-
 }

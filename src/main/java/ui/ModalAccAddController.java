@@ -12,6 +12,14 @@ import javafx.stage.Stage;
 
 import java.util.Collections;
 
+
+/**
+ * Controller for the modal dialog used to add accounts.
+ * <p>
+ * This controller allows users to input an account name and subsequently adds the account
+ * to the bank system. In case of errors, appropriate alerts are shown.
+ * </p>
+ */
 public class ModalAccAddController {
     Stage stage;
 
@@ -20,7 +28,14 @@ public class ModalAccAddController {
     public void setStage(Stage Stages){
         this.stage=Stages;
     }
-
+    
+    /**
+     * Adds an account to the bank system using the given account name from the TextField.
+     * If successful, the account data is written to a file and the user is redirected to the main view.
+     * If an error occurs during account creation or writing, an error alert is displayed.
+     * 
+     * @throws Exception If there's an issue creating or writing the account.
+     */
     public void addaccount(){
         PrivateBank PB = new PrivateBank("Test", 0.5,0.5,System.getProperty("user.dir")+"/src/main/java/bank/Konten/");
         try {

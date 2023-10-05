@@ -10,6 +10,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+
+/**
+ * Controller for handling the addition of payments.
+ * <p>
+ * This controller is responsible for capturing payment details from the user and adding
+ * them as transactions to a given account. Once a payment is added, the user is redirected
+ * back to the account view.
+ * </p>
+ */
 public class PaymentController extends TransactionsController{
 
     @FXML
@@ -23,6 +32,16 @@ public class PaymentController extends TransactionsController{
     @FXML
     TextField outgoinginterest;
 
+
+    /**
+     * Adds a payment as a transaction to the given account.
+     * <p>
+     * After successfully adding a payment, the user is redirected to the 'Accountview.fxml'.
+     * If an error occurs, it presents an alert dialog with the error message.
+     * </p>
+     * 
+     * @throws Exception If there's an issue with the payment addition or loading 'Accountview.fxml'.
+     */
     @FXML
     public void addpayment (){
 

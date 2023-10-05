@@ -12,6 +12,14 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+
+/**
+ * Controller for the modal dialog used to delete accounts.
+ * <p>
+ * This controller allows users to delete an account
+ * from the bank system. In case of errors, appropriate alerts are shown.
+ * </p>
+ */
 public class ModalAccDeleteController {
 
     Stage stage;
@@ -29,6 +37,13 @@ public class ModalAccDeleteController {
         setAccount(account);
     }
 
+    /**
+     * Delete an account from the bank system.
+     * If successful, the account data is deleted from the JSON file and the user is redirected to the main view.
+     * If an error occurs during account creation or writing, an error alert is displayed.
+     * 
+     * @throws Exception If there's an issue deleting the account.
+     */
     @FXML
     public void delete(){
 
@@ -59,6 +74,7 @@ public class ModalAccDeleteController {
         stage.show();
     }
 
+    //Returns to Mainview
     @FXML
     public void deletereturn(){
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Mainview.fxml"));

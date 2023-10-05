@@ -15,7 +15,11 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
-
+/**
+ * Controller for the individual account view.
+ * It provides functionalities such as displaying transactions for a specific account,
+ * adding, deleting, sorting, and filtering transactions, as well as navigating back to the main view.
+ */
 public class AccountviewController {
 
     @FXML
@@ -53,6 +57,9 @@ public class AccountviewController {
         }
         balance.setText(Double.toString(PB.getAccountBalance(account)));
     }
+    /**
+     * Displays a dialog to delete a selected transaction.
+     */
     @FXML
     public void deleteTransacDialog(){
 
@@ -70,6 +77,9 @@ public class AccountviewController {
         }
         stage.show();
     }
+    /**
+     * Displays a dialog to add a transaction.
+     */
     @FXML
     public void addTransacDialog (){
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ModalTransacAdd.fxml"));
@@ -85,6 +95,8 @@ public class AccountviewController {
         }
         stage.show();
     }
+
+    //Sorts transactions by amount
     @FXML
     public void sortedpositive(){
         PrivateBank PB = new PrivateBank("Test", 0.5,0.5,System.getProperty("user.dir")+"/src/main/java/bank/Konten/");
@@ -97,6 +109,8 @@ public class AccountviewController {
             e.printStackTrace();
         }
     }
+
+    //Sorts transactions by amount
     @FXML
     public void sortednegative(){
         PrivateBank PB = new PrivateBank("Test", 0.5,0.5,System.getProperty("user.dir")+"/src/main/java/bank/Konten/");
@@ -110,6 +124,7 @@ public class AccountviewController {
             e.printStackTrace();
         }
     }
+    //Sorts transactions by date
     @FXML
     public void positivetransactions(){
         PrivateBank PB = new PrivateBank("Test", 0.5,0.5,System.getProperty("user.dir")+"/src/main/java/bank/Konten/");
@@ -122,6 +137,7 @@ public class AccountviewController {
             e.printStackTrace();
         }
     }
+    //Sorts transactions by date
     @FXML
     public void negativetransactions(){
         PrivateBank PB = new PrivateBank("Test", 0.5,0.5,System.getProperty("user.dir")+"/src/main/java/bank/Konten/");
@@ -134,6 +150,7 @@ public class AccountviewController {
             e.printStackTrace();
         }
     }
+    
     @FXML
     public void back(){
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Mainview.fxml"));

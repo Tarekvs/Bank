@@ -11,6 +11,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+
+/**
+ * Controller for the modal dialog used to handle transaction deletion.
+ * <p>
+ * This controller facilitates the deletion of a specified transaction and provides
+ * methods for navigating back to the account view.
+ * </p>
+ */
 public class ModalTransacDeleteController {
 
 
@@ -28,11 +36,25 @@ public class ModalTransacDeleteController {
         this.transaction=transaction;
     }
 
+    /**
+     * Initializes the controller with the given parameters.
+     * 
+     * @param stage the stage to be used.
+     * @param account the account to be used.
+     * @param transaction the transaction to be used.
+     */
     public void initialize(Stage stage, String account, Transaction transaction){
         setAccount(account);
         setTransaction(transaction);
         setStage(stage);
     }
+
+    /**
+     * Handles the delete action by removing the selected transaction and updating the account.
+     * Redirects the user to the 'Accountview.fxml'.
+     * 
+     * @throws Exception If there's an issue with the operation or loading 'Accountview.fxml'.
+     */
     @FXML
     public void delete(){
 
@@ -64,6 +86,12 @@ public class ModalTransacDeleteController {
         stage.show();
     }
 
+
+    /**
+     * Handles the return action by redirecting the user to the 'Accountview.fxml'.
+     * 
+     * @throws Exception If there's an issue loading 'Accountview.fxml'.
+     */
     @FXML
     public void deletereturn(){
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Accountview.fxml"));

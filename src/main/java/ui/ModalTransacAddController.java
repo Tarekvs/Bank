@@ -13,9 +13,23 @@ import javafx.stage.Stage;
 
 import java.util.Collections;
 
+
+/**
+ * Controller for the modal dialog used to add transactions.
+ * <p>
+ * This controller provides interfaces for transferring and making payments. 
+ * The user can choose to either transfer funds or make a payment. 
+ * Each action redirects the user to the appropriate view.
+ * </p>
+ */
 public class ModalTransacAddController extends TransactionsController {
 
 
+    /**
+     * Handles the transfer action by redirecting the user to the transfer view.
+     * 
+     * @throws Exception If there's an issue loading the 'Transfer.fxml' or initializing the TransferController.
+     */
     @FXML
     public void transfer (){
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Transfer.fxml"));
@@ -31,7 +45,12 @@ public class ModalTransacAddController extends TransactionsController {
         }
         stage.show();
     }
-
+    
+    /**
+     * Handles the payment action by redirecting the user to the payment view.
+     * 
+     * @throws Exception If there's an issue loading the 'Payment.fxml' or initializing the PaymentController.
+     */
     @FXML
     public void payment(){
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Payment.fxml"));

@@ -14,6 +14,14 @@ import javafx.scene.control.TextField;
 
 import java.util.Objects;
 
+/**
+ * Controller for handling transfer-related actions.
+ * 
+ * <p>
+ * This controller extends the {@link TransactionsController} and is specific to transfer operations.
+ * It facilitates the addition of incoming and outgoing transfers.
+ * </p>
+ */
 public class TransferController extends TransactionsController{
 
     @FXML
@@ -35,6 +43,15 @@ public class TransferController extends TransactionsController{
         sender.setText("Rastla");
     }
 
+    /**
+     * Adds a transfer transaction, either outgoing or incoming based on the account
+     * being the sender or recipient.
+     *
+     * <p>
+     * This method creates an instance of {@link OutgoingTransfer} if the account matches the sender.
+     * Otherwise, if the account matches the recipient, it creates an instance of {@link IncomingTransfer}.
+     * </p>
+     */
     @FXML
     public void addtransfer (){
 
