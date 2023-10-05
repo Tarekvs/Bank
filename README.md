@@ -23,5 +23,5 @@ Ensure you have the following installed on your local machine:
 ### Clone the repository
 
 ```bash
-git clone [https://github.com/Tarekvs/Bank/new/main.git]
+git clone [https://github.com/Tarekvs/Bank.git]
 
