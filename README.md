@@ -1,6 +1,6 @@
 # Bank Management System
 
-Welcome to the Bank Management System project. This application simulates a simplified banking environment written in Java using Maven where you can manage accounts, process transactions, and maintain a persistent record of all activities.
+Welcome to the Bank Management System project. This application simulates a banking environment written in Java using Maven where you can manage accounts, process transactions, and maintain a persistent record of all activities.
 
 ## Features
 
